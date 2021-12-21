@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SignIn</string>
+    <string name="Text">Sign In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="or_sign_in_with">or sign in with</string>
+    <string name="you_r_login_is_successful">You\'r Login is Successful</string>
+    <string name="not_yet_registered_sign_up">Not Yet Registered?Sign Up</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="or_sing_up_with">or sing up with</string>
+    <string name="sign_uP">Sign Up</string>
+    <string name="already_signed_up_log_in">Already Signed Up? Log In</string>
+    <string name="login_is_successful">Login is Successful</string>
+</resources>
