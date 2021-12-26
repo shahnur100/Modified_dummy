@@ -26,7 +26,7 @@ public class Welcome_activity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent=new Intent(Welcome_activity.this, MainActivity.class);
+                Intent homeIntent=new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(homeIntent);
                 finish();
             }

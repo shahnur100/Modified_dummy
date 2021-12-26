@@ -13,17 +13,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Home extends AppCompatActivity {
 
     private EditText user, pass, c_pass;
     private Button up, l_in;
     private FirebaseAuth mAuth;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,70 +45,70 @@ public class Home extends AppCompatActivity {
         up=(Button) findViewById(R.id.sign_uP);
         l_in=findViewById(R.id.already_in);
 
-
-        l_in.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Home.this,MainActivity.class));
-            }
-        });
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userRegister();
-            }
-        });
+                rootNode=FirebaseDatabase.getInstance();
+                reference=rootNode.getReference("Users");
 
-    }
+                String email=user.getText().toString().trim();
+                String _pass=pass.getText().toString().trim();
+                String con_pass=c_pass.getText().toString().trim();
 
+                UserHelperClass helperClass=new UserHelperClass(email, _pass);
 
+                reference.setValue(helperClass);
 
+                if(email.isEmpty())
+                {
+                    user.setError("Enter an email address");
+                    user.requestFocus();
+                    return;
+                }
 
-    private void userRegister() {
-        String email=user.getText().toString().trim();
-        String _pass=pass.getText().toString().trim();
-
-        if(email.isEmpty())
-        {
-            user.setError("Enter an email address");
-            user.requestFocus();
-            return;
-        }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-        {
-            user.setError("Enter a valid email address");
-            user.requestFocus();
-            return;
-        }
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                {
+                    user.setError("Enter a valid email address");
+                    user.requestFocus();
+                    return;
+                }
 
 
-        if(_pass.isEmpty()){
-            pass.setError("Enter a password");
-            pass.requestFocus();
-            return;
-        }
+                if(_pass.isEmpty()){
+                    pass.setError("Enter a password");
+                    pass.requestFocus();
+                    return;
+                }
 
-        if(_pass.length()<6){
-            pass.setError("Minimum length of a password should be 6");
-            pass.requestFocus();
-            return;
-        }
+                if(_pass.length()<6){
+                    pass.setError("Minimum length of a password should be 6");
+                    pass.requestFocus();
+                    return;
+                }
 
-        mAuth.createUserWithEmailAndPassword(email, _pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                if(con_pass.isEmpty()){
+                    c_pass.setError("Confirmation password is required");
+                    return;
+                }
+
+                if(!_pass.equals(con_pass)){
+                    c_pass.setError("Password Do not Match!!");
+                    return;
+                }
+
+                mAuth.createUserWithEmailAndPassword(email, _pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
-                            FirebaseUser user=mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Sign Up is successful", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Sign Up is unsuccessful", Toast.LENGTH_SHORT).show();
-                        }
-
+                    public void onSuccess(AuthResult authResult) {
+                        startActivity(new Intent(getApplicationContext(), Verify_Email.class));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
     }
+
 }

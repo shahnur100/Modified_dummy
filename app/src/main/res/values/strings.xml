@@ -14,4 +14,6 @@
     <string name="sign_uP">Sign Up</string>
     <string name="already_signed_up_log_in">Already Signed Up? Log In</string>
     <string name="login_is_successful">Login is Successful</string>
+    <string name="please_verify_your_email">Please verify your Email</string>
+    <string name="logout">Logout</string>
 </resources>

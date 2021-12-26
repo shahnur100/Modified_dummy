@@ -10,6 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SignIn">
         <activity
+            android:name=".ManagerOrMember"
+            android:exported="false" />
+        <activity
+            android:name=".Manager"
+            android:exported="false" />
+        <activity
+            android:name=".Username"
+            android:exported="false" />
+        <activity
+            android:name=".Enter_mass"
+            android:exported="false" />
+        <activity
+            android:name=".Verify_Email"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

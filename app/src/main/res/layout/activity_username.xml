@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".Username"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/userNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/round3"
+        android:drawableLeft="@drawable/user"
+        android:foregroundTint="@color/colorWhitGray"
+        android:textColor="@color/color1"
+        android:paddingLeft="15dp"
+        android:paddingRight="18dp"
+        android:drawablePadding="15dp"
+        android:textSize="18sp"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/color3"
+        android:fontFamily="@font/poppins_regular"
+        />
+
+    <Button
+        android:id="@+id/enter_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:text="Enter"
+        android:background="@drawable/round"
+        />
+
+
+</LinearLayout>
